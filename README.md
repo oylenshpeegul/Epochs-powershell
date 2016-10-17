@@ -25,6 +25,13 @@ Import-Module ./Epochs
 Invoke-Pester
 ```
 
+'''N.B.''' As you're working, you need to ```-force``` the reload.
+
+```powershell
+Import-Module ./Epochs -force
+Invoke-Pester
+```
+
 I have not tried anything in Windows or MacOS. Pull requests welcome!
 
 ## See Also
