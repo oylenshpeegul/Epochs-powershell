@@ -14,7 +14,6 @@ powershell
 
 Then the tests don't work. [Pester](https://github.com/pester/Pester) requires ```$env:TEMP``` and I have an empty environment, apparently. So I just set it to ```/tmp```.
 
-
 ```powershell
 $env:TEMP = '/tmp'
 ```
@@ -25,6 +24,8 @@ After that, the tests work!
 Import-Module -Name ./Epochs
 Invoke-Pester
 ```
+
+I have not tried anything in Windows or MacOS. Pull requests welcome!
 
 ## See Also
 
