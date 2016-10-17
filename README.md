@@ -25,7 +25,7 @@ Import-Module ./Epochs
 Invoke-Pester
 ```
 
-'''N.B.''' As you're working, you need to ```-force``` the reload.
+**N.B.** As you're working, you need to ```-force``` the reload.
 
 ```powershell
 Import-Module ./Epochs -force
