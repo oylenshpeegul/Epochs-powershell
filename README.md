@@ -21,7 +21,7 @@ $env:TEMP = '/tmp'
 After that, the tests work!
 
 ```powershell
-Import-Module -Name ./Epochs
+Import-Module ./Epochs
 Invoke-Pester
 ```
 
