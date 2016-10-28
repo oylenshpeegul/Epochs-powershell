@@ -28,12 +28,15 @@ Function ToCocoa ($dt) {
 Function GoogleCalendar ($num) {
 
 	# Where is DivRem?
+	# $total_days, $seconds = DivRem($num, $SECONDS_PER_DAY)
 	$total_days = [math]::floor($num / $SECONDS_PER_DAY)
 	$seconds = $num % $SECONDS_PER_DAY
 
+	# $months, $days = DivRem($total_days, 32)
 	$months = [math]::floor($total_days / 32)
 	$days = $total_days % 32
 
+	# Google time starts a day early.
 	[datetime]$google_epoch = '1969-12-31 00:00:00'
 
 	$google_epoch.AddDays($days).AddMonths($months).AddSeconds($seconds)
