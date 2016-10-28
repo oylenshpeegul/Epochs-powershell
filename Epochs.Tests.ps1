@@ -43,6 +43,23 @@ Describe "Cocoa tests" {
 	}
 }
 
+Describe "Icq tests" {
+	Context "39857.980209 is 2009-02-13 23:31:30" {
+		[datetime]$dt = '2009-02-13 23:31:30'
+		$days = 39857.980209
+		It "Icq($days)" {
+			$dt2 = Icq($days)
+			$ms = $dt.Subtract($dt).TotalMilliseconds
+			$ms | Should BeLessThan 0.000005
+		}
+		It "ToIcq('2009-02-13 23:31:30')" {
+			$icq = ToIcq($dt)
+			$diff = $icq - $days
+			$diff | Should BeLessThan 0.000005
+		}
+	}
+}
+
 Describe "Java tests" {
 	Context "1234567890000 is 2009-02-13 23:31:30" {
 		[datetime]$dt = '2009-02-13 23:31:30'
