@@ -2,7 +2,8 @@
 [datetime]$ICQ_EPOCH = '1899-12-30 00:00:00'
 [datetime]$UNIX_EPOCH = '1970-01-01 00:00:00'
 
-$MILLISECONDS_PER_DAY = 24*60*60*1000
+$SECONDS_PER_DAY = 24*60*60
+$MILLISECONDS_PER_DAY = $SECONDS_PER_DAY*1000
 
 # Chrome time is the number of microseconds since 1601-01-01, which is
 # 11,644,473,600 seconds before the Unix epoch.
@@ -24,6 +25,27 @@ Function ToCocoa ($dt) {
 
 # Google Calendar time seems to count 32-day months from the day
 # before the Unix epoch. @noppers worked out how to do this.
+Function GoogleCalendar ($num) {
+
+	# Where is DivRem?
+	$total_days = [math]::floor($num / $SECONDS_PER_DAY)
+	$seconds = $num % $SECONDS_PER_DAY
+
+	$months = [math]::floor($total_days / 32)
+	$days = $total_days % 32
+
+	[datetime]$google_epoch = '1969-12-31 00:00:00'
+
+	$google_epoch.AddDays($days).AddMonths($months).AddSeconds($seconds)
+}
+Function ToGoogleCalendar ($dt) {
+    ((((($dt.Year - 1970 )*12 +
+        ($dt.Month -   1))*32 +
+         $dt.Day         )*24 + 
+         $dt.Hour        )*60 +
+         $dt.Minute      )*60 +
+         $dt.Second
+}
 
 # ICQ time is the number of days since 1899-12-30. Days can have a
 # fractional part.
