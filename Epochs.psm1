@@ -1,4 +1,8 @@
 
+[datetime]$UNIX_EPOCH = '1970-01-01 00:00:00'
+
+$MILLISECONDS_PER_DAY = 24*60*60*1000
+
 # Chrome time is the number of microseconds since 1601-01-01, which is
 # 11,644,473,600 seconds before the Unix epoch.
 Function Chrome ($num) {
@@ -17,6 +21,27 @@ Function ToCocoa ($dt) {
 	time2epoch $dt 1 978307200
 }
 
+# Google Calendar time seems to count 32-day months from the day
+# before the Unix epoch. @noppers worked out how to do this.
+
+# ICQ time is the number of days since 1899-12-30. Days can have a
+# fractional part.
+Function Icq ($num) {
+	[datetime]$dt = '1899-12-30 00:00:00'
+
+	$intdays = [math]::floor($num)
+
+	$fracday = [math]::floor(($num - $intdays) * $MILLISECONDS_PER_DAY)
+
+	$dt.AddDays($intdays).AddMilliseconds($fracday)
+}
+Function ToIcq ($dt) {
+	[datetime]$dt2 = '1899-12-30 00:00:00'
+
+    $dt.Subtract($dt2).TotalMilliseconds / $MILLISECONDS_PER_DAY
+}
+
+
 # Java time is in milliseconds since the Unix epoch.
 Function Java ($num) {
 	epoch2time $num 1000
@@ -32,6 +57,9 @@ Function Mozilla ($num) {
 Function ToMozilla ($dt) {
 	time2epoch $dt 1000000
 }
+
+#  OLE time is the number of days since 1899-12-30, which is
+#  2,209,161,600 seconds before the Unix epoch.
 
 # Symbian time is the number of microseconds since the year 0, which
 # is 62,167,219,200 seconds before the Unix epoch.
@@ -70,15 +98,13 @@ Function ToWindowsFile ($dt) {
 	time2epoch $dt 10000000 -11644473600
 }
 
-[datetime]$unix_epoch = '1970-01-01 00:00:00'
-
 Function epoch2time ($num, $d = 1, $s = 0) {
 	$rem = $num % $d
 	$div = ($num - $rem) / $d
-	$unix_epoch.AddSeconds($div + $s)
+	$UNIX_EPOCH.AddSeconds($div + $s)
 }
 
 Function time2epoch ($dt, $m = 1, $s = 0) {
-    $et = (New-TimeSpan -Start $unix_epoch -End $dt).TotalSeconds
+    $et = (New-TimeSpan -Start $UNIX_EPOCH -End $dt).TotalSeconds
 	$m*($et - $s)
 }
