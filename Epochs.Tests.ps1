@@ -49,13 +49,13 @@ Describe "Icq tests" {
 		$days = 39857.980209
 		It "Icq($days)" {
 			$dt2 = Icq($days)
-			$ms = $dt.Subtract($dt).TotalMilliseconds
-			$ms | Should BeLessThan 0.000005
+			$diff = $dt.Subtract($dt).TotalMilliseconds
+			$diff | Should BeLessThan 0.000001
 		}
 		It "ToIcq('2009-02-13 23:31:30')" {
 			$icq = ToIcq($dt)
 			$diff = $icq - $days
-			$diff | Should BeLessThan 0.000005
+			$diff | Should BeLessThan 0.000001
 		}
 	}
 }
