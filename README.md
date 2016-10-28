@@ -38,7 +38,7 @@ I have not tried anything in Windows or MacOS. Pull requests welcome!
 
 This project was originally done [in Perl](https://github.com/oylenshpeegul/Epochs-perl). See [its gh-page](http://oylenshpeegul.github.io/Epochs-perl/) for motivation.
 
-There is also a version [in Go](https://github.com/oylenshpeegul/epochs).
-
-There is one partially completed [in Elixir](https://github.com/oylenshpeegul/Epochs-elixir).
+There are also versions in
+- [Go](https://github.com/oylenshpeegul/epochs)
+- [Elixir](https://github.com/oylenshpeegul/Epochs-elixir)
 
