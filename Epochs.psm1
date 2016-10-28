@@ -1,4 +1,5 @@
 
+[datetime]$ICQ_EPOCH = '1899-12-30 00:00:00'
 [datetime]$UNIX_EPOCH = '1970-01-01 00:00:00'
 
 $MILLISECONDS_PER_DAY = 24*60*60*1000
@@ -27,20 +28,15 @@ Function ToCocoa ($dt) {
 # ICQ time is the number of days since 1899-12-30. Days can have a
 # fractional part.
 Function Icq ($num) {
-	[datetime]$dt = '1899-12-30 00:00:00'
-
 	$intdays = [math]::floor($num)
 
 	$fracday = [math]::floor(($num - $intdays) * $MILLISECONDS_PER_DAY)
 
-	$dt.AddDays($intdays).AddMilliseconds($fracday)
+	$ICQ_EPOCH.AddDays($intdays).AddMilliseconds($fracday)
 }
 Function ToIcq ($dt) {
-	[datetime]$dt2 = '1899-12-30 00:00:00'
-
-    $dt.Subtract($dt2).TotalMilliseconds / $MILLISECONDS_PER_DAY
+    $dt.Subtract($ICQ_EPOCH).TotalMilliseconds / $MILLISECONDS_PER_DAY
 }
-
 
 # Java time is in milliseconds since the Unix epoch.
 Function Java ($num) {
@@ -58,8 +54,16 @@ Function ToMozilla ($dt) {
 	time2epoch $dt 1000000
 }
 
-#  OLE time is the number of days since 1899-12-30, which is
-#  2,209,161,600 seconds before the Unix epoch.
+#  OLE time is the number of days since 1899-12-30, given as an
+#  array of 8 bytes.
+Function Ole ($bytes) {
+	$double = [bitconverter]::ToDouble($bytes, 0)
+	Icq($double)
+}
+Function ToOle ($dt) {
+    $double = ToIcq($dt)
+	[bitconverter]::GetBytes($double)
+}
 
 # Symbian time is the number of microseconds since the year 0, which
 # is 62,167,219,200 seconds before the Unix epoch.
