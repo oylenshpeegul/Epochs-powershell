@@ -86,6 +86,24 @@ Describe "Mozilla tests" {
 	}
 }
 
+[uint64]$days = "0x40e3763f5dddddde"
+$bytes = [bitconverter]::GetBytes($days)
+$d = [bitconverter]::ToDouble($bytes, 0)
+
+Describe "Ole tests" {
+	Context "40e3763f5dddddde is 2009-02-13 23:31:30" {
+		[datetime]$dt = '2009-02-13 23:31:30'
+		[uint64]$days = "0x40e3763f5dddddde"
+		$bytes = [bitconverter]::GetBytes($days)
+		It "Ole($bytes)" {
+			Ole($bytes) | Should Be $dt
+		}
+		It "ToOle('2009-02-13 23:31:30')" {
+			ToOle($dt) | Should Be $bytes
+		}
+	}
+}
+
 Describe "Symbian tests" {
 	Context "63401787090000000 is 2009-02-13 23:31:30" {
 		[datetime]$dt = '2009-02-13 23:31:30'
