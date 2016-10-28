@@ -43,6 +43,19 @@ Describe "Cocoa tests" {
 	}
 }
 
+Describe "GoogleCalendar tests" {
+	Context "1297899090 is 2009-02-13 23:31:30" {
+		[datetime]$dt = '2009-02-13 23:31:30'
+		$epoch = 1297899090
+		It "GoogleCalendar($epoch)" {
+			GoogleCalendar($epoch) | Should Be $dt
+		}
+		It "ToGoogleCalendar('2009-02-13 23:31:30')" {
+			ToGoogleCalendar($dt) | Should Be $epoch
+		}
+	}
+}
+
 Describe "Icq tests" {
 	Context "39857.980209 is 2009-02-13 23:31:30" {
 		[datetime]$dt = '2009-02-13 23:31:30'
