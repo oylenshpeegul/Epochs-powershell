@@ -31,8 +31,10 @@ PS /home/tim/posh/Epochs-powershell> ToChrome([datetime]"2009-02-13 23:31:30")
 
 ## See Also
 
-This project was originally done [in Perl](https://github.com/oylenshpeegul/Epochs-perl). See the [Epochs web page](http://oylenshpeegul.github.io/Epochs-perl/) for motivation.
+This project was originally done in [Perl](https://github.com/oylenshpeegul/Time-Moment-Epoch). See [the Time::Moment::Epoch web page](http://oylenshpeegul.github.io/Time-Moment-Epoch/) for motivation.
 
-There are also versions in
+There are also a versions in
 - [Go](https://github.com/oylenshpeegul/epochs)
 - [Elixir](https://github.com/oylenshpeegul/Epochs-elixir)
+- [Rust](https://github.com/oylenshpeegul/Epochs-rust)
+
